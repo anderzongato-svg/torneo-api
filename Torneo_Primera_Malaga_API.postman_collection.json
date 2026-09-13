@@ -1,0 +1,141 @@
+{
+  "info": {
+    "name": "API Torneo Primera Malaga",
+    "description": "Coleccion de pruebas para los servicios REST del proyecto formativo Torneo Primera Malaga (esquema real: 8 tablas)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" }
+  ],
+  "item": [
+    {
+      "name": "Campeonatos",
+      "item": [
+        { "name": "Listar campeonatos", "request": { "method": "GET", "url": "{{baseUrl}}/api/campeonatos" } },
+        {
+          "name": "Crear campeonato",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Torneo Primera Malaga\",\n  \"categoria\": \"Abierta\"\n}" },
+            "url": "{{baseUrl}}/api/campeonatos"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Equipos",
+      "item": [
+        { "name": "Listar equipos", "request": { "method": "GET", "url": "{{baseUrl}}/api/equipos" } },
+        { "name": "Consultar equipo por id", "request": { "method": "GET", "url": "{{baseUrl}}/api/equipos/1" } },
+        {
+          "name": "Crear equipo",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Calidosos\",\n  \"municipio\": \"Malaga\",\n  \"colores\": \"Rojo y Blanco\",\n  \"estadio\": \"Estadio Municipal Malaga\"\n}" },
+            "url": "{{baseUrl}}/api/equipos"
+          }
+        },
+        { "name": "Eliminar equipo", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/equipos/1" } }
+      ]
+    },
+    {
+      "name": "Jugadores",
+      "item": [
+        { "name": "Listar jugadores", "request": { "method": "GET", "url": "{{baseUrl}}/api/jugadores" } },
+        { "name": "Listar jugadores por equipo", "request": { "method": "GET", "url": "{{baseUrl}}/api/jugadores?equipoId=1" } },
+        {
+          "name": "Crear jugador",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Juan Perez\",\n  \"dorsal\": 10,\n  \"posicion\": \"Delantero\",\n  \"equipo\": { \"id\": 1 }\n}" },
+            "url": "{{baseUrl}}/api/jugadores"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Arbitros",
+      "item": [
+        { "name": "Listar arbitros", "request": { "method": "GET", "url": "{{baseUrl}}/api/arbitros" } },
+        {
+          "name": "Crear arbitro",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Roberto Cardenas\",\n  \"rol\": \"Central\",\n  \"codigo\": \"ARB-001\"\n}" },
+            "url": "{{baseUrl}}/api/arbitros"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Partidos",
+      "item": [
+        { "name": "Listar partidos", "request": { "method": "GET", "url": "{{baseUrl}}/api/partidos" } },
+        {
+          "name": "Programar partido",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"fecha\": \"2026-09-15\",\n  \"campeonato\": { \"id\": 1 },\n  \"equipoLocal\": { \"id\": 1 },\n  \"equipoVisitante\": { \"id\": 2 },\n  \"arbitro\": { \"id\": 1 }\n}" },
+            "url": "{{baseUrl}}/api/partidos"
+          }
+        },
+        {
+          "name": "Registrar resultado (actualizar a Finalizado)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"fecha\": \"2026-09-15\",\n  \"campeonato\": { \"id\": 1 },\n  \"equipoLocal\": { \"id\": 1 },\n  \"equipoVisitante\": { \"id\": 2 },\n  \"arbitro\": { \"id\": 1 },\n  \"golesLocal\": 2,\n  \"golesVisitante\": 1,\n  \"estado\": \"Finalizado\"\n}" },
+            "url": "{{baseUrl}}/api/partidos/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Goleadores",
+      "item": [
+        { "name": "Listar goleadores", "request": { "method": "GET", "url": "{{baseUrl}}/api/goleadores" } },
+        { "name": "Listar goleadores por campeonato", "request": { "method": "GET", "url": "{{baseUrl}}/api/goleadores?campeonatoId=1" } },
+        {
+          "name": "Registrar/actualizar goleador",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"jugador\": { \"id\": 1 },\n  \"campeonato\": { \"id\": 1 },\n  \"totalGoles\": 5\n}" },
+            "url": "{{baseUrl}}/api/goleadores"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tabla de posiciones",
+      "item": [
+        { "name": "Listar tabla de posiciones", "request": { "method": "GET", "url": "{{baseUrl}}/api/tabla-posiciones" } },
+        { "name": "Listar tabla por campeonato", "request": { "method": "GET", "url": "{{baseUrl}}/api/tabla-posiciones?campeonatoId=1" } },
+        {
+          "name": "Recalcular tabla de un campeonato",
+          "request": { "method": "POST", "url": "{{baseUrl}}/api/tabla-posiciones/recalcular/1" }
+        }
+      ]
+    },
+    {
+      "name": "Sugerencias",
+      "item": [
+        { "name": "Listar sugerencias", "request": { "method": "GET", "url": "{{baseUrl}}/api/sugerencias" } },
+        {
+          "name": "Registrar sugerencia",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Carlos Vega\",\n  \"mensaje\": \"Solicito mejorar el sistema de venta de boletas.\"\n}" },
+            "url": "{{baseUrl}}/api/sugerencias"
+          }
+        }
+      ]
+    }
+  ]
+}

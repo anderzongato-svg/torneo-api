@@ -1,0 +1,5 @@
+# Copiar como application-local.properties (gitignored) o exportar como variables de entorno
+DB_URL=jdbc:mysql://localhost:3306/campeonato_futbol?useSSL=false&serverTimezone=America/Bogota
+DB_USER=root
+DB_PASSWORD=tu_password_local
+SERVER_PORT=8080
